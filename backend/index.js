@@ -1,16 +1,18 @@
 import { json } from "express";
 import express from express
 import { createTodo, updateTodo } from "./types";
+import { todo } from "./db";
 
 const app = express();
 
 app.use(express.json());
 
-app.get('/todos', (req,res) => {
-    res.send('todos')
+app.get('/todos', async (req,res) => {
+    const todos = await todo.find({});
+    res.json(todos)
 })
 
-app.post('/todo', (req,res) => {
+app.post('/todo', async (req,res) => {
     const createPayload = req.body
     const parsedPayload = createTodo.safeParse(createPayload)
 
@@ -18,9 +20,17 @@ app.post('/todo', (req,res) => {
         res.status(411).json({msg: "you sent the wrong inputs"})
         return;
     }
+
+    await todo.create({
+        title: createPayload.title,
+        description: createPayload.description,
+        completed: false
+    })
+
+    res.json({msg: "todo created"})
 })
 
-app.put('/completed', (req,res) => {
+app.put('/completed', async (req,res) => {
     const updatePayload = req.body
     const parsedPayload = updateTodo.safeParse(updatePayload)
 
@@ -28,6 +38,9 @@ app.put('/completed', (req,res) => {
         res.status(411).json({msg: "wrong inputs"})
         return;
     }
+
+    await todo.update({_id: req.body.id}, {completed: true})
+    
 
 })
 
