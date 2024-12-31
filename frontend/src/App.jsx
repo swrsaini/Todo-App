@@ -1,0 +1,27 @@
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import { CreateTodo } from './components/CreateTodo'
+import { Todos } from './components/Todos'
+
+function App() {
+  const [todos, setTodos] = useState([{
+    title: "Go to Gym",
+    description: "You have to go to Gym"
+  },{
+    title: "Go to Lab",
+    description: "You have to go to Lab"
+  }])
+  
+  
+
+  return (
+    <>
+      <CreateTodo setTodos={setTodos} />
+      <Todos todos={todos}></Todos>
+    </>
+  )
+}
+
+export default App

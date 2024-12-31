@@ -1,7 +1,7 @@
-import { json } from "express";
-import express from express
-import { createTodo, updateTodo } from "./types";
-import { todo } from "./db";
+
+const express = require('express')
+const {createTodo, updateTodo} = require("./types")
+const {todo} = require("./db")
 
 const app = express();
 
@@ -39,7 +39,9 @@ app.put('/completed', async (req,res) => {
         return;
     }
 
-    await todo.update({_id: req.body.id}, {completed: true})
+    await todo.updateOne({_id: req.body.id}, {completed: true})
+
+    res.json({msg: "done"})
     
 
 })
