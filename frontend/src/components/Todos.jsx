@@ -4,7 +4,7 @@ export function Todos({todos}){
             return <div>
                 <h1>{e.title}</h1>
                 <p>{e.description}</p>
-                <button>Mark as Completed</button>
+                <button>{e.completed == true ? "Completed" : "Mark as Complete"}</button>
             </div>
         })}
     </div>

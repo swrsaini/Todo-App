@@ -8,12 +8,19 @@ import { Todos } from './components/Todos'
 function App() {
   const [todos, setTodos] = useState([{
     title: "Go to Gym",
-    description: "You have to go to Gym"
+    description: "You have to go to Gym",
+    completed: false
   },{
     title: "Go to Lab",
-    description: "You have to go to Lab"
+    description: "You have to go to Lab",
+    completed: false
   }])
   
+  fetch("http://localhost:3000/todos")
+  .then(async (res)=> {
+    const json = await res.json();
+    setTodos(json);
+  })
   
 
   return (
