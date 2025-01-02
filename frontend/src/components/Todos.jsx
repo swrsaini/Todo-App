@@ -9,9 +9,11 @@ export function Todos({count , setCount}){
         setTodos(json);
       })}, [count]) 
 
+    let sortedTodos = todos.slice().reverse()
+    console.log(sortedTodos)
 
     return <div>
-        {todos.map((e)=>{
+        {sortedTodos.map((e)=>{
             return <div key={e._id}>
                 <h2>{e.title}</h2>
                 <p>{e.description}</p>
@@ -28,7 +30,7 @@ export function Todos({count , setCount}){
                     })
                     setCount(count+1);
                 }}>{e.completed == true ? "Completed" : "Mark as Complete"}</button>
-                
+
                 <button style={{margin: '5px'}} onClick={async()=>{
                     await fetch("http://localhost:3000/remove", {
                         method: 'PUT',
