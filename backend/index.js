@@ -49,4 +49,17 @@ app.put('/completed', async (req,res) => {
 
 })
 
+app.put('/remove', async(req,res) => {
+    const updatePayload = req.body
+    const parsedPayload = updateTodo.safeParse(updatePayload)
+
+    if(!parsedPayload.success){
+        res.status(411).json({msg: "wrong inputs"})
+        return;
+    }
+
+    await todo.deleteOne({_id: req.body.id})
+    res.json({msg: 'done'})
+})
+
 app.listen(3000);
