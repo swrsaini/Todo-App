@@ -1,11 +1,22 @@
-export function Todos({todos}){
+import { useState , useEffect } from "react";
+export function Todos({count , setCount}){
+    const [todos, setTodos] = useState([])
+    
+    
+      useEffect(()=>{fetch("http://localhost:3000/todos")
+      .then(async (res)=> {
+        const json = await res.json();
+        setTodos(json);
+      })}, [count]) 
+
+
     return <div>
         {todos.map((e)=>{
             return <div key={e._id}>
                 <h2>{e.title}</h2>
                 <p>{e.description}</p>
                 
-                <button onClick={async ()=>{
+                <button onClick={async()=>{
                     await fetch("http://localhost:3000/completed", {
                         method: 'PUT',
                         body: JSON.stringify({
@@ -15,6 +26,8 @@ export function Todos({todos}){
                             'content-type': 'application/json'
                         }
                     })
+                    setCount(count+1);
+                    console.log(count)
                 }}>{e.completed == true ? "Completed" : "Mark as Complete"}</button>
             </div>
         })}

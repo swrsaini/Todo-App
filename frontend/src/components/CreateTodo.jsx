@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Todos } from "./Todos";
 
-export function CreateTodo(){
+export function CreateTodo({count , setCount}){
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
     return <div>
@@ -22,10 +23,12 @@ export function CreateTodo(){
                 headers: {
                     'content-Type': 'application/json'
                 }
-            }).then(async (res)=> {
+            }).then((res)=> {
                 const json = res.json();
                 alert("Todo Added")
+                setCount(count+1)
             })
+            
         }}>Add a Todo</button>
     </div>
 }
