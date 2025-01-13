@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Todos } from "./Todos";
-
+import axios from 'axios'
 export function CreateTodo({count , setCount}){
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
@@ -14,20 +14,19 @@ export function CreateTodo({count , setCount}){
             console.log(e.target.value)
         }} />
         <button onClick={()=>{
-            fetch("http://localhost:3000/todo", {
-                method: "POST",
-                body: JSON.stringify({
+            if(title == "" || description == ""){
+                alert("Title or Description can't be empty");
+            }
+            else{
+                axios.post('http://localhost:3000/todo',{
                     title: title,
                     description: description
-                }),
-                headers: {
-                    'content-Type': 'application/json'
-                }
-            }).then((res)=> {
-                const json = res.json();
-                alert("Todo Added")
-                setCount(count+1)
-            })
+                }).then((res)=> {
+                    alert("Todo Added")
+                    setCount(count+1)
+                })
+            }
+            
             
         }}>Add a Todo</button>
     </div>
