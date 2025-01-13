@@ -14,6 +14,8 @@ export function Todos({ count, setCount }) {
     console.log(sortedTodos)
 
     return <div className="flex-col justify-center w-1/2 ">
+        {sortedTodos.length > 0 ? <div className="flex-col justify-center m-4 font-bold">NUMBER OF TODOS <div className="flex justify-center m-4"><p className="w-12  border rounded-full p-1 border-yellow-300 text-3xl text-yellow-300">{sortedTodos.length}</p></div></div> : ''}
+        
         {sortedTodos.map((e) => {
             return <div className={`h-full p-3 border-2 border-white mb-2 rounded-lg ${e.completed == true ? 'opacity-50 line-through' : ''} `} key={e._id}>
                 <h2 className="text-3xl mb-2">{e.title}</h2>
