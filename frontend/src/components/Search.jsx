@@ -1,9 +1,18 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export function Search() {
+export function Search({todoRef}) {
     const [search, setSearch] = useState(""); // State for search input
     const [results, setResults] = useState([]); // Initialize results as an empty array
+
+    function highlightDiv(id){
+        if(todoRef.current[id]){
+            todoRef.current[id].scrollIntoView({
+                behaviour: 'smooth',
+                block: 'start',
+            })
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,7 +33,7 @@ export function Search() {
             }
         };
 
-        const debounceTimeout = setTimeout(fetchData, 500); // Debounce API call
+        const debounceTimeout = setTimeout(fetchData, 1000); // Debounce API call
 
         return () => clearTimeout(debounceTimeout); // Cleanup timeout
     }, [search]); // Run effect when search changes
@@ -37,14 +46,12 @@ export function Search() {
                 placeholder="search"
                 onChange={(e) => setSearch(e.target.value)} // Update search state
             />
-            <div>
+            <div className="flex-col justify-center items-center">
                 {results.length > 0 ? (
                     results.map((item, index) => (
-                        <div key={index}>{item.title}</div>
+                        <div className="hover:cursor-pointer hover:bg-gray-900  " onClick={()=> highlightDiv(item._id)} key={index}>{item.title}</div>
                     ))
-                ) : (
-                    <p>No results found</p> // Fallback message
-                )}
+                ) : null}
             </div>
         </div>
     );

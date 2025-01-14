@@ -17,7 +17,6 @@ app.get('/todos', async (req, res) => {
 
 app.get('/search-todos/', async(req,res) => {
     const search = req.query.search;
-    console.log(search)
     const todos = await todo.find({})
     let result = todos.filter(e => e.title.toLowerCase().includes(search.toLowerCase()));
     res.json(result);
