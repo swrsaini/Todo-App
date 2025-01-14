@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 export function Todos({ count, setCount }) {
     const [todos, setTodos] = useState([])
@@ -21,28 +22,16 @@ export function Todos({ count, setCount }) {
                 <h2 className="text-3xl mb-2">{e.title}</h2>
                 <p className="m-2"> {e.description}</p>
                 <button style={{ margin: '5px' }} onClick={async () => {
-                    await fetch("http://localhost:3000/completed", {
-                        method: 'PUT',
-                        body: JSON.stringify({
+                    await axios.put("http://localhost:3000/completed", {
                             id: e._id
-                        }),
-                        headers: {
-                            'content-type': 'application/json'
-                        }
                     })
                     setCount(count + 1);
                 }}>{e.completed == true ? 'Completed' : "Mark as Complete"}</button>
 
                 <button style={{ margin: '5px' }} onClick={async () => {
-                    await fetch("http://localhost:3000/remove", {
-                        method: 'PUT',
-                        body: JSON.stringify({
-                            id: e._id
-                        }),
-                        headers: {
-                            'content-type': 'application/json'
-                        }
-                    })
+                    await axios.put("http://localhost:3000/remove", {
+                        id: e._id
+                })
                     setCount(count + 1);
                 }}>Remove</button>
                 {/* {e.completed == true ? setTaskCompleted(true) : setTaskCompleted(false)} */}
