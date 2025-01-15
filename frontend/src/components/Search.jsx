@@ -29,7 +29,6 @@ export function Search({ todoRef }) {
                 const response = await axios.get('http://localhost:3000/search-todos', {
                     params: { search: search }// Pass search query as a parameter
                 });
-                console.log(response)
                 setResults(response.data); // Update results with API response
             } catch (error) {
                 console.error("Error fetching search results:", error);
