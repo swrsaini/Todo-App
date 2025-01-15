@@ -1,18 +1,22 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-export function Search({todoRef}) {
+export function Search({ todoRef }) {
     const [search, setSearch] = useState(""); // State for search input
     const [results, setResults] = useState([]); // Initialize results as an empty array
 
-    function highlightDiv(id){
-        if(todoRef.current[id]){
+    function highlightDiv(id) {
+        if (todoRef.current[id]) {
             todoRef.current[id].scrollIntoView({
-                behaviour: 'smooth',
+                behavior: 'smooth',
                 block: 'start',
+                inline: 'center'
             })
+
         }
     }
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,7 +27,7 @@ export function Search({todoRef}) {
 
             try {
                 const response = await axios.get('http://localhost:3000/search-todos', {
-                    params: {search: search}// Pass search query as a parameter
+                    params: { search: search }// Pass search query as a parameter
                 });
                 console.log(response)
                 setResults(response.data); // Update results with API response
@@ -43,13 +47,15 @@ export function Search({todoRef}) {
             <input
                 className="py-2 px-4 text-sm font-medium m-1"
                 type="text"
-                placeholder="search"
+                placeholder="search..."
+                value={search}
                 onChange={(e) => setSearch(e.target.value)} // Update search state
+                onBlur={()=> setSearch('')}
             />
             <div className="flex-col justify-center items-center">
                 {results.length > 0 ? (
                     results.map((item, index) => (
-                        <div className="hover:cursor-pointer hover:bg-gray-900  " onClick={()=> highlightDiv(item._id)} key={index}>{item.title}</div>
+                        <div className="hover:cursor-pointer hover:bg-gray-900  " onClick={() => highlightDiv(item._id)} key={index}>{item.title}</div>
                     ))
                 ) : null}
             </div>
