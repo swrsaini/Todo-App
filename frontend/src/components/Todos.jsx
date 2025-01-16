@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { Search } from "./Search";
-import { todoList } from "../store/todoList";
+import { countAtom, todoList } from "../store/todoList";
 import { useRecoilState, useRecoilValue } from "recoil";
-export function Todos({ count, setCount }) {
+export function Todos() {
     const [todos, setTodos] = useRecoilState(todoList)
+    const [count, setCount] = useRecoilState(countAtom)
     const todoRef = useRef({})
 
     useEffect(() => {

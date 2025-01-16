@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
-export function CreateTodo({count , setCount}){
+import { useRecoilState } from "recoil";
+import { countAtom } from "../store/todoList";
+export function CreateTodo(){
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
+    const [count,setCount] = useRecoilState(countAtom)
 
     function createTodo(){
         if(title == "" || description == ""){

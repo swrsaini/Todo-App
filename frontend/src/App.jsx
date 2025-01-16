@@ -7,7 +7,6 @@ import { RecoilRoot } from 'recoil'
 
 function App() {
   
-  const [count,setCount] = useState(0)
 
   return (
     <>
@@ -15,14 +14,16 @@ function App() {
     <div className='mb-4'>
       <h1>To Do App</h1>
     </div>
-      <CreateTodo count={count} setCount={setCount} />
+    <RecoilRoot>
+      <CreateTodo />
 
       <div className='flex justify-center items-center w-full'>
-      <RecoilRoot>
-      <Todos count={count} setCount={setCount}></Todos>
-      </RecoilRoot>
+      
+      <Todos></Todos>
+    
       
       </div>
+      </RecoilRoot>
       
     </>
   )
