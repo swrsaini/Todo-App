@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Todos } from "./Todos";
 import axios from 'axios'
 export function CreateTodo({count , setCount}){
     const [title,setTitle] = useState("");

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { CreateTodo } from './components/CreateTodo'
 import { Todos } from './components/Todos'
+import { RecoilRoot } from 'recoil'
 
 
 function App() {
@@ -17,7 +18,10 @@ function App() {
       <CreateTodo count={count} setCount={setCount} />
 
       <div className='flex justify-center items-center w-full'>
+      <RecoilRoot>
       <Todos count={count} setCount={setCount}></Todos>
+      </RecoilRoot>
+      
       </div>
       
     </>
